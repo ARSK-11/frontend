@@ -1,294 +1,91 @@
-# Troubleshooting Guide - Upload Outfit & Generate
+# Troubleshooting - Error "Failed to Fetch"
 
-## 🚨 Masalah Umum dan Solusi
+## Masalah
+Error "Failed to fetch" terjadi ketika aplikasi tidak dapat terhubung ke backend server untuk fitur Try-On.
 
-### 1. **Hasil Generate Kosong**
+## Penyebab Umum
+1. **Backend server offline** - Server AI Try-On tidak tersedia
+2. **Cloudflare tunnel expired** - URL tunnel sudah tidak aktif
+3. **Network connectivity issues** - Masalah koneksi internet
+4. **CORS issues** - Cross-origin resource sharing error
+5. **Invalid API key** - API key yang digunakan tidak valid
 
-#### Gejala:
-- Generate button tidak berfungsi
-- Hasil generate kosong/tidak muncul
-- Error "Hasil generate kosong"
+## Solusi yang Telah Diterapkan
 
-#### Penyebab:
-- Backend tidak berjalan
-- API endpoint tidak tersedia
-- File upload tidak valid
-- Outfit tidak dipilih dengan benar
+### 1. CORS Configuration
+- Dynamic CORS origin checking untuk mendukung multiple domains
+- Support untuk Cloudflare tunnel domains
+- Wildcard domain support untuk `*.trycloudflare.com`
 
-#### Solusi:
+### 2. Enhanced Error Handling
+- Error handling yang lebih detail dengan logging
+- Timeout handling untuk mencegah hanging requests
+- User-friendly error messages dalam bahasa Indonesia
 
-**A. Cek Backend Server:**
-```bash
-# Pastikan backend berjalan
-cd /home/aris/Documents/coding/prototype/backend
-npm start
+### 3. Multiple Endpoint Support
+- Endpoint `/api/tryon` untuk API calls
+- Endpoint `/tryon` untuk akses langsung
+- Health check endpoint `/health` untuk monitoring
 
-# Cek apakah server berjalan di port 3000
-curl http://localhost:3000/api/assets/clothing
-```
+### 4. Improved User Experience
+- Loading states yang lebih informatif
+- Progress indicators untuk upload
+- Better error messages dengan detail teknis
 
-**B. Test API dengan File HTML:**
-```bash
-# Buka file test di browser
-open coding/percobaan/frontend/test-api.html
-```
+## Cara Mengatasi Error
 
-**C. Cek Console Browser:**
-1. Buka Developer Tools (F12)
-2. Lihat tab Console
-3. Cari error messages
-4. Pastikan semua console.log menampilkan data yang benar
+### Untuk Developer:
+1. **Test CORS** - Gunakan file `test-cors.html` untuk test konektivitas
+2. **Periksa console** - Buka Developer Tools untuk melihat error detail
+3. **Update URL backend** - Jika perlu, update URL di `tryon.jsx`
+4. **Restart backend services** - Jika Anda memiliki akses ke backend
+5. **Cek CORS configuration** - Pastikan domain frontend ada di `ALLOWED_ORIGINS`
 
-### 2. **File Upload Tidak Berfungsi**
+### Untuk User:
+1. **Refresh halaman** - Coba refresh browser
+2. **Cek koneksi internet** - Pastikan koneksi internet stabil
+3. **Clear browser cache** - Hapus cache browser dan coba lagi
+4. **Coba browser lain** - Test dengan browser yang berbeda
 
-#### Gejala:
-- Drag & drop tidak bekerja
-- File picker tidak membuka
-- File tidak ter-upload
+## Konfigurasi Backend URL
 
-#### Solusi:
-
-**A. Cek File Type:**
+### URL Saat Ini:
 ```javascript
-// Pastikan file adalah gambar
-if (!file.type.startsWith('image/')) {
-  alert('Please select a valid image file');
-  return;
-}
+const BACKEND_BASE_URL = "https://backend2-1-t2fh.onrender.com";
+const BACKEND_USER_URL = "https://backend-user-ftr6.onrender.com";
+const BACKEND1_URL = "https://shut-penalty-decrease-croatia.trycloudflare.com";
 ```
 
-**B. Cek File Size:**
-```javascript
-// Limit 5MB
-const maxSize = 5 * 1024 * 1024;
-if (file.size > maxSize) {
-  alert('File too large');
-  return;
-}
-```
+### Cara Update URL:
+1. Buka file `src/pages/tryon.jsx`
+2. Update konstanta URL sesuai kebutuhan
+3. Restart development server
 
-**C. Cek Browser Support:**
-- Pastikan browser modern (Chrome, Firefox, Safari, Edge)
-- Enable JavaScript
-- Allow file access
+## Monitoring dan Debugging
 
-### 3. **Outfit Tidak Muncul di Gallery**
+### Console Logs:
+- Semua request ke backend akan di-log di console
+- Error details akan ditampilkan untuk debugging
+- Status response dari setiap backend akan di-log
 
-#### Gejala:
-- Gallery kosong
-- "No Outfits Found" message
-- Loading spinner tidak berhenti
+### Network Tab:
+- Gunakan Developer Tools > Network tab
+- Lihat request yang gagal dan response error
+- Periksa status code dan response body
 
-#### Solusi:
+## Best Practices
 
-**A. Cek Backend Clothing Directory:**
-```bash
-# Pastikan folder ada dan berisi file
-ls -la /home/aris/Documents/coding/prototype/backend/public/assets/clothing/
-```
+1. **Always implement fallback URLs**
+2. **Use proper timeout handling**
+3. **Provide user-friendly error messages**
+4. **Monitor backend health regularly**
+5. **Implement retry mechanisms**
+6. **Log errors for debugging**
 
-**B. Cek API Response:**
-```bash
-curl -v http://localhost:3000/api/assets/clothing
-```
-
-**C. Cek File Permissions:**
-```bash
-# Pastikan file bisa diakses
-chmod 644 /home/aris/Documents/coding/prototype/backend/public/assets/clothing/*
-```
-
-### 4. **Generate API Error**
-
-#### Gejala:
-- Error "HTTP error! status: 500"
-- Error "API tidak mengembalikan gambar yang valid"
-- Generate button disabled
-
-#### Solusi:
-
-**A. Cek Backend Logs:**
-```bash
-# Lihat log backend
-cd /home/aris/Documents/coding/prototype/backend
-npm start
-# Lihat output di terminal
-```
-
-**B. Test Generate API Manual:**
-```bash
-# Test dengan curl
-curl -X POST http://localhost:3000/generate \
-  -H "Content-Type: application/json" \
-  -d '{
-    "image1": "data:image/jpeg;base64,/9j/4AAQ...",
-    "image2": "http://localhost:3000/api/assets/clothing/test.jpg",
-    "flag": false
-  }'
-```
-
-**C. Cek CORS:**
-```javascript
-// Pastikan CORS diaktifkan di backend
-app.use(cors());
-```
-
-### 5. **Memory Issues**
-
-#### Gejala:
-- Browser crash
-- Slow performance
-- Memory leaks
-
-#### Solusi:
-
-**A. Cleanup URLs:**
-```javascript
-// Cleanup blob URLs
-URL.revokeObjectURL(uploadedImageUrl);
-URL.revokeObjectURL(generatedImageUrl);
-```
-
-**B. Reset State:**
-```javascript
-// Reset semua state
-setUploadedImage(null);
-setSelectedOutfit(null);
-setGeneratedImage(null);
-setGenerateError(null);
-```
-
-## 🔧 Debug Steps
-
-### Step 1: Check Backend Status
-```bash
-# 1. Start backend
-cd /home/aris/Documents/coding/prototype/backend
-npm start
-
-# 2. Test API endpoints
-curl http://localhost:3000/api/assets/clothing
-curl -X POST http://localhost:3000/generate -H "Content-Type: application/json" -d '{}'
-```
-
-### Step 2: Check Frontend Console
-1. Buka browser
-2. Buka Developer Tools (F12)
-3. Lihat tab Console
-4. Cari error messages
-5. Pastikan semua console.log menampilkan data yang benar
-
-### Step 3: Use Test HTML File
-1. Buka `coding/percobaan/frontend/test-api.html`
-2. Test clothing API
-3. Upload test image
-4. Select outfit
-5. Test generate
-
-### Step 4: Check Network Tab
-1. Buka Developer Tools
-2. Lihat tab Network
-3. Cek request/response untuk:
-   - `/api/assets/clothing`
-   - `/generate`
-4. Pastikan status 200 OK
-
-## 📋 Checklist Debug
-
-### Backend Checklist:
-- [ ] Server berjalan di port 3000
-- [ ] CORS diaktifkan
-- [ ] Folder `/public/assets/clothing/` ada
-- [ ] File gambar ada di folder
-- [ ] File permissions benar
-- [ ] API `/api/assets/clothing` berfungsi
-- [ ] API `/generate` berfungsi
-
-### Frontend Checklist:
-- [ ] React app berjalan di port 5173
-- [ ] Console tidak ada error
-- [ ] File upload berfungsi
-- [ ] Drag & drop berfungsi
-- [ ] Gallery menampilkan outfit
-- [ ] Outfit selection berfungsi
-- [ ] Generate button aktif
-- [ ] Generate process berjalan
-- [ ] Hasil generate muncul
-
-### Browser Checklist:
-- [ ] JavaScript enabled
-- [ ] File access allowed
-- [ ] Network requests allowed
-- [ ] Console accessible
-- [ ] Developer tools working
-
-## 🐛 Common Error Messages
-
-### "Upload foto dan pilih outfit terlebih dahulu"
-- **Cause**: Missing uploaded image or selected outfit
-- **Solution**: Upload image and select outfit
-
-### "Gagal memuat data pakaian"
-- **Cause**: Backend API not responding
-- **Solution**: Start backend server
-
-### "HTTP error! status: 500"
-- **Cause**: Backend server error
-- **Solution**: Check backend logs
-
-### "API tidak mengembalikan gambar yang valid"
-- **Cause**: Generate API returning wrong content type
-- **Solution**: Check backend generate function
-
-### "Hasil generate kosong"
-- **Cause**: Generated image is 0 bytes
-- **Solution**: Check backend image processing
-
-### "Invalid outfit selection"
-- **Cause**: Outfit URL is invalid
-- **Solution**: Refresh page and reselect outfit
-
-## 🔄 Reset & Recovery
-
-### Reset Frontend State:
-```javascript
-// Di browser console
-localStorage.clear();
-sessionStorage.clear();
-location.reload();
-```
-
-### Reset Backend:
-```bash
-# Restart backend server
-cd /home/aris/Documents/coding/prototype/backend
-npm start
-```
-
-### Clear Browser Cache:
-1. Buka Developer Tools
-2. Right-click refresh button
-3. Select "Empty Cache and Hard Reload"
-
-## 📞 Support
+## Support
 
 Jika masalah masih berlanjut:
-
-1. **Cek semua checklist di atas**
-2. **Gunakan file test-api.html untuk debug**
-3. **Lihat console browser untuk error details**
-4. **Cek backend logs untuk server errors**
-5. **Pastikan semua dependencies terinstall**
-
-### Dependencies Check:
-```bash
-# Frontend
-cd /home/aris/Documents/coding/percobaan/frontend
-npm install
-
-# Backend
-cd /home/aris/Documents/coding/prototype/backend
-npm install
-```
-
-Sekarang Anda memiliki tools lengkap untuk debug dan fix masalah upload-outfit! 🔧✨ 
+1. Periksa log error di console
+2. Cek status backend di UI
+3. Hubungi administrator untuk bantuan teknis
+4. Pastikan semua service backend berjalan dengan normal 

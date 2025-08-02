@@ -11,4 +11,10 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    allowedHosts: [
+      "shut-penalty-decrease-croatia.trycloudflare.com",
+      "behavior-front-avatar-mitsubishi.trycloudflare.com" // tambahkan domain ngrok atau cloudflare tunnel kamu di sini tanpa https://
+    ]
+  }
 })

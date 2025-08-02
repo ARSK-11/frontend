@@ -103,14 +103,14 @@ export default function HomePage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="flex items-center justify-center min-h-screen bg-white">
         <div className="text-center space-y-6">
           <div className="relative">
-            <div className="animate-spin rounded-full h-16 w-16 border-4 border-green-200 border-t-green-500 mx-auto"></div>
-            <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-green-400 animate-ping"></div>
+            <div className="animate-spin h-16 w-16 border-4 border-gray-200 border-t-black mx-auto"></div>
+            <div className="absolute inset-0 border-4 border-transparent border-t-black animate-ping"></div>
           </div>
           <div className="space-y-2">
-            <p className="text-gray-700 font-medium">Memuat koleksi pakaian...</p>
+            <p className="text-black font-medium">Memuat koleksi pakaian...</p>
             <p className="text-gray-500 text-sm">Mohon tunggu sebentar</p>
           </div>
         </div>
@@ -120,12 +120,12 @@ export default function HomePage() {
 
   if (error) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-        <Card className="w-full max-w-md shadow-xl">
+      <div className="flex items-center justify-center min-h-screen bg-white">
+        <Card className="w-full max-w-md border-2 border-black">
           <CardContent className="pt-8 text-center space-y-6">
-            <div className="text-red-500 text-6xl">⚠️</div>
+            <div className="text-black text-6xl">⚠️</div>
             <div className="space-y-2">
-              <h3 className="text-xl font-bold text-red-500">Oops! Terjadi Kesalahan</h3>
+              <h3 className="text-xl font-bold text-black">Oops! Terjadi Kesalahan</h3>
               <p className="text-gray-600">{error}</p>
             </div>
             <Button onClick={fetchClothingItems} variant="outline" className="w-full">
@@ -138,14 +138,14 @@ export default function HomePage() {
   }
 
   return (
-    <div className="flex h-full bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="flex h-full bg-white">
       {/* Left Column - Product List */}
       <div className="flex-1 p-8 overflow-y-auto">
         {/* Header Section */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h1 className="text-4xl font-bold text-gray-800 mb-2">Create Transaction</h1>
+              <h1 className="text-4xl font-bold text-black mb-2">Create Transaction</h1>
               <p className="text-gray-600">Pilih dan beli produk fashion favorit Anda</p>
             </div>
             <div className="flex items-center space-x-3">
@@ -153,7 +153,7 @@ export default function HomePage() {
                 variant={viewMode === "grid" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setViewMode("grid")}
-                className="flex items-center space-x-2"
+                className="flex items-center space-x-2 bg-black text-white"
               >
                 <Grid3X3 className="w-4 h-4" />
                 <span>Grid</span>
@@ -162,7 +162,7 @@ export default function HomePage() {
                 variant={viewMode === "list" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setViewMode("list")}
-                className="flex items-center space-x-2"
+                className="flex items-center space-x-2 bg-black text-white"
               >
                 <List className="w-4 h-4" />
                 <span>List</span>
@@ -171,7 +171,7 @@ export default function HomePage() {
           </div>
 
           {/* Enhanced Search Bar */}
-          <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
+          <div className="bg-white border border-black p-6 mb-6">
             <div className="flex items-center space-x-4">
               <div className="flex-1 relative">
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -180,12 +180,12 @@ export default function HomePage() {
                   placeholder="Cari produk fashion, brand, atau kategori..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-12 pr-4 h-12 text-lg border-0 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-500 rounded-xl"
+                  className="pl-12 pr-4 h-12 text-lg border-black bg-white focus:ring-2 focus:ring-black"
                 />
               </div>
               <Button 
                 size="lg" 
-                className="h-12 px-8 bg-green-500 hover:bg-green-600 shadow-lg hover:shadow-xl transition-all duration-200 rounded-xl"
+                className="h-12 px-8 bg-black hover:bg-gray-800 text-white"
               >
                 <Search className="w-5 h-5 mr-2" />
                 Cari
@@ -193,7 +193,7 @@ export default function HomePage() {
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="h-12 px-6 border-gray-300 hover:border-green-500 rounded-xl"
+                className="h-12 px-6 border-black hover:bg-black hover:text-white"
               >
                 <Filter className="w-5 h-5 mr-2" />
                 Filter
@@ -204,26 +204,25 @@ export default function HomePage() {
           {/* Enhanced Category Filters */}
           <div className="flex flex-wrap gap-3 mb-8">
             {[
-              { id: "all", label: "Semua Produk", count: clothingItems.length, color: "bg-blue-500" },
-              { id: "shirt", label: "Kemeja", count: clothingItems.filter(item => item.desc.toLowerCase().includes('shirt')).length, color: "bg-green-500" },
-              { id: "pants", label: "Celana", count: clothingItems.filter(item => item.desc.toLowerCase().includes('pants')).length, color: "bg-purple-500" },
-              { id: "dress", label: "Gaun", count: clothingItems.filter(item => item.desc.toLowerCase().includes('dress')).length, color: "bg-pink-500" },
-              { id: "shoes", label: "Sepatu", count: clothingItems.filter(item => item.desc.toLowerCase().includes('shoes')).length, color: "bg-orange-500" },
-              { id: "batik", label: "Batik", count: clothingItems.filter(item => item.desc.toLowerCase().includes('batik')).length, color: "bg-red-500" }
+              { id: "all", label: "Semua Produk", count: clothingItems.length },
+              { id: "shirt", label: "Kemeja", count: clothingItems.filter(item => item.desc.toLowerCase().includes('shirt')).length },
+              { id: "pants", label: "Celana", count: clothingItems.filter(item => item.desc.toLowerCase().includes('pants')).length },
+              { id: "dress", label: "Gaun", count: clothingItems.filter(item => item.desc.toLowerCase().includes('dress')).length },
+              { id: "shoes", label: "Sepatu", count: clothingItems.filter(item => item.desc.toLowerCase().includes('shoes')).length },
+              { id: "batik", label: "Batik", count: clothingItems.filter(item => item.desc.toLowerCase().includes('batik')).length }
             ].map((category) => (
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`px-6 py-3 rounded-xl flex items-center space-x-3 transition-all duration-200 transform hover:scale-105 ${
+                className={`px-6 py-3 flex items-center space-x-3 transition-all duration-200 ${
                   selectedCategory === category.id
-                    ? "bg-white shadow-lg border-2 border-green-500 text-gray-800"
-                    : "bg-white text-gray-600 hover:bg-gray-50 shadow-md hover:shadow-lg"
+                    ? "bg-black text-white"
+                    : "bg-white text-black border border-black hover:bg-gray-100"
                 }`}
               >
-                <div className={`w-3 h-3 rounded-full ${category.color}`}></div>
                 <span className="font-medium">{category.label}</span>
-                <span className={`text-xs px-2 py-1 rounded-full ${
-                  selectedCategory === category.id ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'
+                <span className={`text-xs px-2 py-1 ${
+                  selectedCategory === category.id ? 'bg-white text-black' : 'bg-black text-white'
                 }`}>
                   {category.count}
                 </span>
@@ -240,7 +239,7 @@ export default function HomePage() {
             
             if (viewMode === "list") {
               return (
-                <Card key={index} className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-200">
+                <Card key={index} className="bg-white border border-black">
                   <CardContent className="p-0">
                     <div className="flex">
                       <div className="w-48 h-32 relative">
@@ -260,7 +259,7 @@ export default function HomePage() {
                           </div>
                         </div>
                         {isNew && (
-                          <Badge className="absolute top-2 right-2 bg-green-500 text-white text-xs">
+                          <Badge className="absolute top-2 right-2 bg-black text-white text-xs">
                             New
                           </Badge>
                         )}
@@ -270,14 +269,14 @@ export default function HomePage() {
                           <h3 className="font-bold text-xl mb-2">{item.desc}</h3>
                           <p className="text-gray-600 mb-3">{item.desc} - ID: {item.id}</p>
                           <div className="flex items-center space-x-4">
-                            <span className="font-bold text-2xl text-green-600">Rp {price}</span>
-                            <Badge className="bg-gray-100 text-gray-700">Stock: {Math.floor(Math.random() * 200) + 50}</Badge>
+                            <span className="font-bold text-2xl text-black">Rp {price}</span>
+                            <Badge className="bg-gray-100 text-black">Stock: {Math.floor(Math.random() * 200) + 50}</Badge>
                           </div>
                         </div>
                         <div className="flex items-center space-x-3">
                           <Button 
                             onClick={() => addToCart(item)}
-                            className="bg-green-500 hover:bg-green-600 shadow-lg"
+                            className="bg-black hover:bg-gray-800 text-white"
                           >
                             <Plus className="w-4 h-4 mr-2" />
                             Add to Cart
@@ -285,6 +284,7 @@ export default function HomePage() {
                           <Button
                             variant="outline"
                             onClick={() => navigate('/tryon', { state: { selectedClothing: item } })}
+                            className="border-black text-black hover:bg-black hover:text-white"
                           >
                             <Sparkles className="h-4 w-4 mr-2" />
                             Try On
@@ -298,7 +298,7 @@ export default function HomePage() {
             }
 
             return (
-              <Card key={index} className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-200 transform hover:-translate-y-1">
+              <Card key={index} className="bg-white border border-black">
                 <CardContent className="p-0">
                   <div className="relative">
                     <img
@@ -316,26 +316,26 @@ export default function HomePage() {
                         <p className="text-sm">Image not available</p>
                       </div>
                     </div>
-                    <Badge className="absolute top-3 left-3 bg-gray-800 text-white text-xs shadow-lg">
+                    <Badge className="absolute top-3 left-3 bg-black text-white text-xs">
                       {Math.floor(Math.random() * 200) + 50} Stock
                     </Badge>
                     {isNew && (
-                      <Badge className="absolute top-3 right-3 bg-green-500 text-white text-xs shadow-lg">
+                      <Badge className="absolute top-3 right-3 bg-black text-white text-xs">
                         New
                       </Badge>
                     )}
                   </div>
                   <div className="p-4 space-y-3">
-                    <h3 className="font-bold text-lg line-clamp-2 text-gray-800">{item.desc}</h3>
+                    <h3 className="font-bold text-lg line-clamp-2 text-black">{item.desc}</h3>
                     <p className="text-gray-600 text-xs line-clamp-2">
                       {item.desc} - ID: {item.id}
                     </p>
                     <div className="flex items-center justify-between">
-                      <span className="font-bold text-lg text-green-600">Rp {price}</span>
+                      <span className="font-bold text-lg text-black">Rp {price}</span>
                       <Button 
                         onClick={() => addToCart(item)}
                         size="sm"
-                        className="bg-green-500 hover:bg-green-600 shadow-lg hover:shadow-xl transition-all duration-200"
+                        className="bg-black hover:bg-gray-800 text-white"
                       >
                         <Plus className="w-3 h-3 mr-1" />
                         Add
@@ -345,7 +345,7 @@ export default function HomePage() {
                       <Button
                         variant="outline"
                         size="sm"
-                        className="hover:bg-gray-50"
+                        className="border-black text-black hover:bg-black hover:text-white"
                         onClick={() => {
                           const link = document.createElement('a');
                           link.href = `${API_BASE}/uploads/${item.image}`;
@@ -359,7 +359,7 @@ export default function HomePage() {
                         variant="default"
                         size="sm"
                         onClick={() => navigate('/tryon', { state: { selectedClothing: item } })}
-                        className="flex-1 bg-blue-500 hover:bg-blue-600 text-xs"
+                        className="flex-1 bg-black hover:bg-gray-800 text-white text-xs"
                       >
                         <Sparkles className="h-3 w-3 mr-1" />
                         Coba

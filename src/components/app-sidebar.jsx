@@ -62,10 +62,10 @@ export function AppSidebar() {
   };
 
   return (
-    <div className="w-16 bg-gray-800 flex flex-col items-center py-4 space-y-6 fixed left-0 top-0 h-full z-50">
+    <div className="w-16 bg-black flex flex-col items-center py-4 space-y-6 fixed left-0 top-0 h-full z-50">
       {/* Logo */}
-      <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-        <Eye className="w-6 h-6 text-white" />
+      <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+        <Eye className="w-6 h-6 text-black" />
       </div>
 
       {/* Navigation Icons */}
@@ -80,8 +80,8 @@ export function AppSidebar() {
               onClick={() => handleMenuClick(item.url)}
               className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
                 isActive || isShopping
-                  ? "text-green-500 bg-green-500/10"
-                  : "text-gray-400 hover:text-white"
+                  ? "text-black bg-white"
+                  : "text-white hover:text-gray-300"
               }`}
               title={item.title}
             >
@@ -94,7 +94,7 @@ export function AppSidebar() {
       {/* Bottom */}
       <div className="mt-auto">
         <button 
-          className="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-white"
+          className="w-10 h-10 flex items-center justify-center text-white hover:text-gray-300"
           onClick={handleLogout}
           title="Logout"
         >

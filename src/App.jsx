@@ -17,8 +17,8 @@ function Home() {
 function About() {
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">About Page</h1>
-      <p className="text-gray-600">
+      <h1 className="text-2xl font-bold mb-4 text-black">About Page</h1>
+      <p className="text-black">
         Ini adalah halaman About.
       </p>
     </div>
@@ -28,8 +28,8 @@ function About() {
 function Inbox() {
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Inbox Page</h1>
-      <p className="text-gray-600">
+      <h1 className="text-2xl font-bold mb-4 text-black">Inbox Page</h1>
+      <p className="text-black">
         Ini adalah halaman Inbox.
       </p>
     </div>
@@ -40,8 +40,8 @@ function Inbox() {
 function NotFound404() {
   return (
     <div className="p-4 flex flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold mb-4 text-red-600">404 - Not Found</h1>
-      <p className="text-gray-600">Halaman yang Anda cari tidak ditemukan.</p>
+      <h1 className="text-4xl font-bold mb-4 text-black">404 - Not Found</h1>
+      <p className="text-black">Halaman yang Anda cari tidak ditemukan.</p>
     </div>
   );
 }
@@ -58,7 +58,7 @@ function App() {
       <Route
         path="/*"
         element={
-          <div className="flex h-screen bg-gray-100">
+          <div className="flex h-screen bg-white">
             <AppSidebar />
             <div className="flex-1 flex flex-col ml-16">
               <Navbar />
