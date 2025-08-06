@@ -11,7 +11,7 @@ import {
   Sparkles,
   RefreshCw,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const BACKEND_BASE_URL = "https://backend2-1-t2fh.onrender.com";
 const BACKEND_USER_URL = "https://backend-user-ftr6.onrender.com";
@@ -19,6 +19,15 @@ const BACKEND1_URL = "http://localhost:3000";
 
 // Sidebar component
 function Sidebar({ selectedClothingItem }) {
+  const [selectedSize, setSelectedSize] = useState('M'); // State untuk ukuran yang dipilih
+
+  const sizes = [
+    { size: 'S', stock: 5 },
+    { size: 'M', stock: 10 },
+    { size: 'L', stock: 8 },
+    { size: 'XL', stock: 3 }
+  ]; // Array ukuran dan stok yang tersedia
+
   return (
     <aside className="w-full lg:w-[45%] flex-shrink-0">
       {/* Sidebar: Clothing Thumbnail + Info */}
@@ -43,11 +52,33 @@ function Sidebar({ selectedClothingItem }) {
             </div>
             <div className="flex-1">
               <p className="font-medium text-xs">{selectedClothingItem?.desc || "Nama Pakaian"}</p>
-              <p className="text-xs text-gray-500">Warna: Putih | Ukuran: M</p>
+              <p className="text-xs text-gray-500">Warna: Putih | Ukuran: {selectedSize}</p>
             </div>
             <span className="font-bold text-xs">Rp 299.000</span>
           </div>
         </div>
+
+        {/* Size Selector */}
+        <div className="mb-4">
+          <p className="text-sm font-medium mb-2">Pilih Ukuran:</p>
+          <div className="flex gap-2">
+            {sizes.map(({size, stock}) => (
+              <button
+                key={size}
+                onClick={() => setSelectedSize(size)}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors flex flex-col items-center ${
+                  selectedSize === size 
+                    ? 'bg-black text-white' 
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                <span>{size}</span>
+                <span className="text-xs mt-1">{stock} tersisa</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Ringkasan Harga */}
         <div className="border-t pt-3 space-y-1 text-xs">
           <div className="flex justify-between">
@@ -73,9 +104,11 @@ function Sidebar({ selectedClothingItem }) {
 
 export default function TryOnPage() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [uploadedPersonImage, setUploadedPersonImage] = useState(null);
   const [clothingItems, setClothingItems] = useState([]);
+  const [selectedClothingItem, setSelectedClothingItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [generating, setGenerating] = useState(false);
@@ -94,6 +127,13 @@ export default function TryOnPage() {
     fetchClothingItems();
   }, []);
 
+  useEffect(() => {
+    // Check if there's a selected clothing item from navigation state
+    if (location.state && location.state.selectedClothing) {
+      setSelectedClothingItem(location.state.selectedClothing);
+    }
+  }, [location.state]);
+
   const fetchClothingItems = async () => {
     try {
       setLoading(true);
@@ -104,6 +144,10 @@ export default function TryOnPage() {
       const data = await response.json();
       if (data && data.success) {
         setClothingItems(data.data);
+        // Only set first item if no clothing was selected from home page
+        if (!location.state?.selectedClothing && data.data.length > 0) {
+          setSelectedClothingItem(data.data[0]);
+        }
         setError(null);
       } else {
         setError("Gagal memuat data pakaian");
@@ -230,15 +274,7 @@ export default function TryOnPage() {
     }
   };
 
-  const getSelectedClothingItem = () => {
-    if (clothingItems && clothingItems.length > 0) {
-      return clothingItems[0];
-    }
-    return null;
-  };
-
   const handleGenerate = async () => {
-    const selectedClothingItem = getSelectedClothingItem();
     if (!selectedClothingItem || !uploadedPersonImageUrl) {
       alert("Pilih pakaian dan upload foto orang terlebih dahulu");
       return;
@@ -302,7 +338,6 @@ export default function TryOnPage() {
   };
 
   const handleRegenerateMirror = async () => {
-    const selectedClothingItem = getSelectedClothingItem();
     if (!selectedClothingItem || !uploadedPersonImageUrl) {
       alert("Pilih pakaian dan upload foto orang terlebih dahulu");
       return;
@@ -372,8 +407,6 @@ export default function TryOnPage() {
     );
   }
 
-  const selectedClothingItem = getSelectedClothingItem();
-
   return (
     <>
       <div className="p-4 min-h-screen">
@@ -395,8 +428,15 @@ export default function TryOnPage() {
             <p className="text-base text-gray-700 font-medium">
               Coba pakaian secara virtual dengan AI
             </p>
+            {/* {selectedClothingItem && (
+              <p className="text-sm text-blue-600 font-medium mt-1">
+                Pakaian yang dipilih: {selectedClothingItem.desc}
+              </p>
+            )} */}
           </div>
         </div>
+
+
 
         {/* Main Layout: TryOn kiri, Sidebar kanan 35% */}
         <div className="flex flex-col lg:flex-row gap-8">

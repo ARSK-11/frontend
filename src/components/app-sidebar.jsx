@@ -146,10 +146,10 @@ export function AppSidebar() {
       <div className="p-4 border-t border-gray-200">
         <div className="flex items-center space-x-3">
           <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-            <span className="text-white font-medium text-sm">AF</span>
+            <span className="text-white font-medium text-sm">TG</span>
           </div>
           <div className="flex-1">
-            <div className="text-sm font-medium text-gray-900">Ananda Faris</div>
+            <div className="text-sm font-medium text-gray-900">Tempe Goreng</div>
             <div className="text-xs text-gray-500">Free Account</div>
           </div>
           <ChevronRight className="w-4 h-4 text-gray-400" />

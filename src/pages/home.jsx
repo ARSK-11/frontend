@@ -279,7 +279,7 @@ export default function HomePage() {
       {/* Content Area */}
       <div className="space-y-6">
             {/* Featured Discussions Header */}
-            {/* <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold text-gray-900">Featured Discussions</h2>
               <div className="flex items-center space-x-2">
                 <span className="text-sm text-gray-500">Most Recent</span>
@@ -292,7 +292,7 @@ export default function HomePage() {
                   <RefreshCw className="w-4 h-4" />
                 </Button>
               </div>
-            </div> */}
+            </div>
 
             {/* Category Filters */}
             <div className="flex flex-wrap gap-3 mb-6">
@@ -443,19 +443,6 @@ export default function HomePage() {
                       </Button>
                     </div>
                     <div className="flex gap-1">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                            className="border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-500"
-                        onClick={() => {
-                          const link = document.createElement('a');
-                          link.href = `${API_BASE}/uploads/${item.image}`;
-                          link.download = item.image;
-                          link.click();
-                        }}
-                      >
-                        <Download className="h-3 w-3" />
-                      </Button>
                       <Button
                         variant="default"
                         size="sm"

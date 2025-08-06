@@ -48,7 +48,7 @@ export default function Navbar() {
           </Button>
 
           {/* Tombol refresh yang bisa di-klik */}
-          <button
+          {/* <button
             onClick={handleRefresh}
             className="focus:outline-none"
             title="Refresh"
@@ -56,7 +56,7 @@ export default function Navbar() {
             type="button"
           >
             <RefreshCw className="w-5 h-5 text-gray-500 hover:text-blue-500 cursor-pointer transition-colors" />
-          </button>
+          </button> */}
           
           <Settings className="w-5 h-5 text-gray-500 hover:text-blue-500 cursor-pointer transition-colors" />
           
