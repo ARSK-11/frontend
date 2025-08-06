@@ -13,8 +13,8 @@ export default defineConfig({
   },
   server: {
     allowedHosts: [
-      "shut-penalty-decrease-croatia.trycloudflare.com",
-      "behavior-front-avatar-mitsubishi.trycloudflare.com" // tambahkan domain ngrok atau cloudflare tunnel kamu di sini tanpa https://
+      "park-superintendent-enhanced-produces.trycloudflare.com",
+      "portable-stating-indicates-con.trycloudflare.com" // tambahkan domain ngrok atau cloudflare tunnel kamu di sini tanpa https://
     ]
   }
 })

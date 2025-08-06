@@ -15,7 +15,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 const BACKEND_BASE_URL = "https://backend2-1-t2fh.onrender.com";
 const BACKEND_USER_URL = "https://backend-user-ftr6.onrender.com";
-const BACKEND1_URL = "http://localhost:3000";
+const BACKEND1_URL = "https://portable-stating-indicates-con.trycloudflare.com";
 
 // Sidebar component
 function Sidebar({ selectedClothingItem }) {
@@ -120,6 +120,7 @@ export default function TryOnPage() {
   const [uploadError, setUploadError] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [aiMirrorEnabled, setAiMirrorEnabled] = useState(true);
+  const [showOriginal, setShowOriginal] = useState(true);
 
   const fileInputRef = useRef(null);
 
@@ -428,15 +429,8 @@ export default function TryOnPage() {
             <p className="text-base text-gray-700 font-medium">
               Coba pakaian secara virtual dengan AI
             </p>
-            {/* {selectedClothingItem && (
-              <p className="text-sm text-blue-600 font-medium mt-1">
-                Pakaian yang dipilih: {selectedClothingItem.desc}
-              </p>
-            )} */}
           </div>
         </div>
-
-
 
         {/* Main Layout: TryOn kiri, Sidebar kanan 35% */}
         <div className="flex flex-col lg:flex-row gap-8">
@@ -447,7 +441,7 @@ export default function TryOnPage() {
               <div className="relative">
                 {uploadedPersonImage ? (
                   <img
-                    src={uploadedPersonImage.preview}
+                    src={showOriginal ? uploadedPersonImage.preview : (generatedResult ? generatedResult.resultUrl : uploadedPersonImage.preview)}
                     alt="Uploaded person"
                     className="w-full h-[80vh] object-cover"
                   />
@@ -506,20 +500,8 @@ export default function TryOnPage() {
                 {/* Swap Image Button */}
                 {generatedResult && generatedResult.resultUrl && uploadedPersonImage && (
                   <Button
-                    onClick={() => {
-                      if (generatedResult && generatedResult.resultUrl && uploadedPersonImage) {
-                        const tempPreview = uploadedPersonImage.preview;
-                        setUploadedPersonImage({
-                          ...uploadedPersonImage,
-                          preview: generatedResult.resultUrl
-                        });
-                        setGeneratedResult({
-                          ...generatedResult,
-                          resultUrl: tempPreview
-                        });
-                      }
-                    }}
-                    className="absolute bottom-4 right-4 hover:bg-gray-100 text-black rounded-full w-12 h-12 p-0 border border-gray-300"
+                    onClick={() => setShowOriginal(!showOriginal)}
+                    className="absolute bottom-4 right-4 bg-white hover:bg-gray-100 text-black rounded-full w-12 h-12 p-0 border border-gray-300"
                   >
                     <RefreshCw className="h-5 w-5" />
                   </Button>
@@ -640,19 +622,19 @@ export default function TryOnPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-16 h-16 rounded-lg overflow-hidden border-2 border-gray-200">
                         <img
-                          src={generatedResult.resultUrl}
-                          alt="Generated output"
+                          src={generatedResult.resultUrl} 
+                          alt="Hasil generate"
                           className="w-full h-full object-cover"
                         />
                       </div>
                     </div>
                     <Button
                       onClick={handleDownloadResult}
-                      size="sm"
+                      size="sm" 
                       className="bg-black hover:bg-gray-800 text-white"
                     >
                       <Download className="h-4 w-4 mr-1" />
-                      Download
+                      Unduh
                     </Button>
                   </div>
                 </div>

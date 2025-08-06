@@ -72,9 +72,9 @@ export function AppSidebar() {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">F</span>
+              <span className="text-white font-bold text-sm">T</span>
             </div>
-            <span className="font-bold text-xl text-gray-900">Fashion.ai</span>
+            <span className="font-bold text-xl text-gray-900">Threadify</span>
           </div>
           <Button variant="ghost" size="sm" className="text-gray-500">
             <ArrowLeft className="w-4 h-4" />

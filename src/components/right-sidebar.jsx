@@ -28,7 +28,7 @@ export function RightSidebar() {
     <div className="w-80 bg-white border-l border-gray-200 p-6 overflow-y-auto">
       {/* Welcome Section */}
       <div className="mb-6">
-        <h3 className="text-lg font-bold text-gray-900 mb-2">Welcome to Fashion.ai</h3>
+        <h3 className="text-lg font-bold text-gray-900 mb-2">Welcome to Threadify</h3>
         <p className="text-sm text-gray-600">Your fashion community platform</p>
       </div>
 
