@@ -20,94 +20,51 @@ const BACKEND1_URL = "http://localhost:3000";
 // Sidebar component
 function Sidebar({ selectedClothingItem }) {
   return (
-    <aside className="w-full lg:w-[35%] flex-shrink-0">
+    <aside className="w-full lg:w-[45%] flex-shrink-0">
       {/* Sidebar: Clothing Thumbnail + Info */}
-      <div className="bg-white rounded-xl p-4 flex flex-col items-left mb-6">
-        <div className="flex flex-col items-center">
-          <div className="mb-2">
-            <Shirt className="h-6 w-6 text-black" />
-          </div>
-          <div className="w-16 h-16 rounded-lg overflow-hidden border border-gray-300 mb-2 bg-gray-100 flex items-center justify-center">
-            {selectedClothingItem ? (
-              <img
-                src={`${BACKEND_BASE_URL}/uploads/${selectedClothingItem.image}`}
-                alt={selectedClothingItem.desc}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <span className="text-xs text-gray-400">No clothing</span>
-            )}
-          </div>
-          {selectedClothingItem && (
-            <>
-              <h3 className="font-semibold text-black text-center text-xs">
-                {selectedClothingItem.desc}
-              </h3>
-              <p className="text-xs text-gray-500 text-center">
-                ID: {selectedClothingItem.id}
-              </p>
-            </>
-          )}
-        </div>
-      </div>
 
       {/* Sidebar: Everyday Look Info */}
-      <div className="bg-white rounded-xl p-4">
-        <h2 className="text-base font-bold text-black mb-2">EVERYDAY LOOK</h2>
+      <div className="rounded-xl p-4">
+        <h2 className="text-base font-bold text-black mb-2">DETAIL PAKAIAN</h2>
         <p className="text-gray-700 mb-4 text-xs">
-          Great style for everyday wear. Elegant sunglasses accentuate the face's oval shape, while a casually draped sweater adds a hint of luxury and style.
+          Tampilan pakaian yang elegan dan nyaman untuk dipakai sehari-hari. Cocok untuk berbagai acara.
         </p>
-        {/* Product Items */}
+        {/* Gambar dan Info Produk */}
         <div className="space-y-2 mb-4">
           <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
-            <div className="w-7 h-7 bg-gray-200 rounded flex items-center justify-center">
-              <span className="text-xs text-gray-500">💍</span>
+            <div className="w-16 h-16 bg-gray-200 rounded flex items-center justify-center overflow-hidden">
+              {selectedClothingItem && (
+                <img 
+                  src={`${BACKEND_BASE_URL}/uploads/${selectedClothingItem.image}`}
+                  alt={selectedClothingItem.desc}
+                  className="w-full h-full object-cover"
+                />
+              )}
             </div>
             <div className="flex-1">
-              <p className="font-medium text-xs">Pack of 2 stainless steel signet rings</p>
-              <p className="text-xs text-gray-500">Color: Silver | Size: S | PULL&BEAR</p>
+              <p className="font-medium text-xs">{selectedClothingItem?.desc || "Nama Pakaian"}</p>
+              <p className="text-xs text-gray-500">Warna: Putih | Ukuran: M</p>
             </div>
-            <span className="font-bold text-xs">$17.99</span>
-          </div>
-          <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
-            <div className="w-7 h-7 bg-gray-200 rounded flex items-center justify-center">
-              <span className="text-xs text-gray-500">👕</span>
-            </div>
-            <div className="flex-1">
-              <p className="font-medium text-xs">Rustic oversize long sleeve shirt</p>
-              <p className="text-xs text-gray-500">Color: White | Size: XS | ZARA</p>
-              <p className="text-xs text-gray-400 line-through">$230.00</p>
-            </div>
-            <span className="font-bold text-xs text-green-600">$119.99</span>
-          </div>
-          <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
-            <div className="w-7 h-7 bg-gray-200 rounded flex items-center justify-center">
-              <span className="text-xs text-gray-500">🧥</span>
-            </div>
-            <div className="flex-1">
-              <p className="font-medium text-xs">Round neck sweater</p>
-              <p className="text-xs text-gray-500">Color: Green | Size: S | BERSHKA</p>
-            </div>
-            <span className="font-bold text-xs">$149.99</span>
+            <span className="font-bold text-xs">Rp 299.000</span>
           </div>
         </div>
-        {/* Price Summary */}
+        {/* Ringkasan Harga */}
         <div className="border-t pt-3 space-y-1 text-xs">
           <div className="flex justify-between">
-            <span>Discount:</span>
-            <span className="text-green-600">-$239.99</span>
+            <span>Diskon:</span>
+            <span className="text-green-600">-Rp 50.000</span>
           </div>
           <div className="flex justify-between">
-            <span>Delivery:</span>
-            <span>$120.99</span>
+            <span>Ongkos Kirim:</span>
+            <span>Rp 20.000</span>
           </div>
           <div className="flex justify-between font-bold text-base border-t pt-2">
-            <span>Total price:</span>
-            <span>$168.97</span>
+            <span>Total:</span>
+            <span>Rp 269.000</span>
           </div>
         </div>
         <Button className="w-full bg-black text-white hover:bg-gray-800 font-bold py-2 mt-4 text-xs">
-          Go to checkout
+          Checkout Now
         </Button>
       </div>
     </aside>
@@ -404,7 +361,7 @@ export default function TryOnPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px] bg-white">
+      <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center space-y-4">
           <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary mx-auto border-black"></div>
           <p className="text-lg text-black font-semibold">
@@ -419,17 +376,17 @@ export default function TryOnPage() {
 
   return (
     <>
-      <div className="p-4 bg-white min-h-screen">
+      <div className="p-4 min-h-screen">
         {/* Header */}
         <div className="flex items-center gap-4 mb-4">
           <Button
             variant="outline"
             size="sm"
             onClick={() => navigate("/")}
-            className="bg-white hover:bg-gray-100 text-black border-gray-300"
+            className="hover:bg-gray-100 text-black border-gray-200"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Kembali
+            Back
           </Button>
           <div>
             <h1 className="text-3xl font-extrabold tracking-tight text-black">
@@ -444,8 +401,8 @@ export default function TryOnPage() {
         {/* Main Layout: TryOn kiri, Sidebar kanan 35% */}
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Left: TryOn Content */}
-          <div className="w-full lg:w-[65%]">
-            <div className="relative bg-white p-0 overflow-hidden border border-gray-200">
+          <div className="w-full lg:w-[55%]">
+            <div className="relative p-0 overflow-hidden border border-gray-200">
               {/* Main Image */}
               <div className="relative">
                 {uploadedPersonImage ? (
@@ -459,7 +416,7 @@ export default function TryOnPage() {
                     className={`w-full h-[80vh] flex items-center justify-center transition-colors cursor-pointer ${
                       dragActive
                         ? "border-black bg-gray-100"
-                        : "border-gray-300 bg-white"
+                        : "border-gray-300"
                     } hover:border-black hover:bg-gray-100`}
                     onDragEnter={handleDrag}
                     onDragLeave={handleDrag}
@@ -522,7 +479,7 @@ export default function TryOnPage() {
                         });
                       }
                     }}
-                    className="absolute bottom-4 right-4 bg-white hover:bg-gray-100 text-black rounded-full w-12 h-12 p-0 border border-gray-300"
+                    className="absolute bottom-4 right-4 hover:bg-gray-100 text-black rounded-full w-12 h-12 p-0 border border-gray-300"
                   >
                     <RefreshCw className="h-5 w-5" />
                   </Button>
@@ -543,7 +500,7 @@ export default function TryOnPage() {
 
               {/* Upload Progress */}
               {uploading && (
-                <div className="p-4 bg-white border-t">
+                <div className="p-4 border-t">
                   <div className="flex flex-col items-center gap-2 w-full">
                     <Loader2 className="h-5 w-5 animate-spin text-black" />
                     <span className="text-black font-medium text-sm">
@@ -567,7 +524,7 @@ export default function TryOnPage() {
 
               {/* Upload Error */}
               {uploadError && (
-                <div className="p-4 bg-white border-t">
+                <div className="p-4 border-t">
                   <div className="text-red-500 text-sm font-semibold flex items-center gap-2">
                     <AlertCircle className="h-4 w-4" />
                     {uploadError}
@@ -576,7 +533,7 @@ export default function TryOnPage() {
               )}
 
               {/* Generate Buttons */}
-              <div className="p-4 bg-white border-t">
+              <div className="p-4 border-t">
                 <div className="flex gap-3">
                   <Button
                     onClick={handleGenerate}
@@ -638,10 +595,9 @@ export default function TryOnPage() {
 
               {/* Output Thumbnail */}
               {generatedResult && generatedResult.resultUrl && (
-                <div className="p-4 bg-white border-t">
+                <div className="p-4 border-t">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <span className="text-sm font-medium text-black">Output:</span>
                       <div className="w-16 h-16 rounded-lg overflow-hidden border-2 border-gray-200">
                         <img
                           src={generatedResult.resultUrl}

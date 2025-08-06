@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { AppSidebar } from "@/components/app-sidebar";
+import { RightSidebar } from "@/components/right-sidebar";
 import Navbar from "@/components/navbar";
 
 // pages
@@ -16,10 +17,10 @@ function Home() {
 
 function About() {
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4 text-black">About Page</h1>
-      <p className="text-black">
-        Ini adalah halaman About.
+    <div className="p-6">
+      <h1 className="text-3xl font-bold mb-4 text-gray-900">About Page</h1>
+      <p className="text-gray-600">
+        Ini adalah halaman About dengan tema Itinari.ai.
       </p>
     </div>
   );
@@ -27,10 +28,10 @@ function About() {
 
 function Inbox() {
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4 text-black">Inbox Page</h1>
-      <p className="text-black">
-        Ini adalah halaman Inbox.
+    <div className="p-6">
+      <h1 className="text-3xl font-bold mb-4 text-gray-900">Inbox Page</h1>
+      <p className="text-gray-600">
+        Ini adalah halaman Inbox dengan tema Itinari.ai.
       </p>
     </div>
   );
@@ -39,9 +40,36 @@ function Inbox() {
 // Komponen untuk halaman 404 Not Found (hanya content)
 function NotFound404() {
   return (
-    <div className="p-4 flex flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold mb-4 text-black">404 - Not Found</h1>
-      <p className="text-black">Halaman yang Anda cari tidak ditemukan.</p>
+    <div className="p-6 flex flex-col items-center justify-center">
+      <h1 className="text-4xl font-bold mb-4 text-gray-900">404 - Not Found</h1>
+      <p className="text-gray-600">Halaman yang Anda cari tidak ditemukan.</p>
+    </div>
+  );
+}
+
+// Layout dengan sidebar dan navbar
+function AppLayout({ children }) {
+  return (
+    <div className="flex h-screen bg-gray-50">
+      {/* Left Sidebar */}
+      <AppSidebar />
+      
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col ml-64">
+        {/* Top Navbar */}
+        <Navbar />
+        
+        {/* Content */}
+        <div className="flex-1 flex">
+          {/* Main Content */}
+          <div className="flex-1 overflow-y-auto">
+            {children}
+          </div>
+          
+          {/* Right Sidebar */}
+          <RightSidebar />
+        </div>
+      </div>
     </div>
   );
 }
@@ -58,22 +86,16 @@ function App() {
       <Route
         path="/*"
         element={
-          <div className="flex h-screen bg-white">
-            <AppSidebar />
-            <div className="flex-1 flex flex-col ml-16">
-              <Navbar />
-              <div className="flex-1">
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/inbox" element={<Inbox />} />
-                  <Route path="/tryon" element={<TryOnPage />} />
-                  {/* Tambahkan route lain di sini */}
-                  <Route path="*" element={<NotFound404 />} />
-                </Routes>
-              </div>
-            </div>
-          </div>
+          <AppLayout>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/inbox" element={<Inbox />} />
+              <Route path="/tryon" element={<TryOnPage />} />
+              {/* Tambahkan route lain di sini */}
+              <Route path="*" element={<NotFound404 />} />
+            </Routes>
+          </AppLayout>
         }
       />
     </Routes>
