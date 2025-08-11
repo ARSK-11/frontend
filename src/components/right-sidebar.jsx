@@ -1,21 +1,32 @@
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, TrendingUp, Hash, Sparkles } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Separator } from "@/components/ui/separator";
 
 export function RightSidebar() {
   const trendingArticles = [
     {
       title: "Minimalist Casual Style for Everyday",
       description: "Tips for mixing casual clothes that are simple yet stylish",
-      readMore: "Read More →"
+      readMore: "Read More →",
+      author: "Fashion Expert",
+      avatar: "FE"
     },
     {
       title: "Latest Fashion Trends 2024",
       description: "Update on trending fashion collections this year",
-      readMore: "Read More →"
+      readMore: "Read More →",
+      author: "Style Guide",
+      avatar: "SG"
     },
     {
       title: "Mix & Match Budget Outfit",
       description: "Guide to mix and match clothes on a budget",
-      readMore: "Read More →" 
+      readMore: "Read More →",
+      author: "Budget Fashion",
+      avatar: "BF"
     }
   ];
 
@@ -25,67 +36,86 @@ export function RightSidebar() {
   ];
 
   return (
-    <div className="w-80 bg-white border-l border-gray-200 p-6 overflow-y-auto">
+    <div
+      className="w-80 bg-black/20 backdrop-blur-xl border-l border-white/10 p-6 overflow-y-auto custom-scrollbar"
+      style={{ borderRadius: "5px" }}
+    >
       {/* Welcome Section */}
-      <div className="mb-6">
-        <h3 className="text-lg font-bold text-gray-900 mb-2">Welcome to Threadify</h3>
-        <p className="text-sm text-gray-600">Your fashion community platform</p>
-      </div>
+      <Card className="mb-6 supabase-gradient-card" style={{ borderRadius: "5px" }}>
+        <CardHeader className="pb-3" style={{ borderRadius: "5px" }}>
+          <CardTitle className="text-lg flex items-center gap-2 text-white">
+            <Sparkles className="w-5 h-5 text-green-400" />
+            Welcome to Threadify
+          </CardTitle>
+          <CardDescription className="text-gray-400">
+            Your fashion community platform
+          </CardDescription>
+        </CardHeader>
+      </Card>
 
       {/* Trending Section */}
-      <div className="mb-8">
-        <h3 className="text-lg font-bold text-gray-900 mb-4">Trending This Week</h3>
-        <div className="space-y-4">
+      <Card className="mb-6 supabase-gradient-card" style={{ borderRadius: "5px" }}>
+        <CardHeader className="pb-3" style={{ borderRadius: "5px" }}>
+          <CardTitle className="text-base flex items-center gap-2 text-white">
+            <TrendingUp className="w-4 h-4 text-green-400" />
+            Trending Articles
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4" style={{ borderRadius: "5px" }}>
           {trendingArticles.map((article, index) => (
-            <div key={index} className="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors cursor-pointer">
-              <h4 className="font-semibold text-gray-900 mb-2">{article.title}</h4>
-              <p className="text-sm text-gray-600 mb-3">{article.description}</p>
-              <a href="#" className="text-blue-500 text-sm font-medium hover:text-blue-600">
-                {article.readMore}
-              </a>
+            <div key={index} className="space-y-2">
+              <div className="flex items-start space-x-3">
+                <Avatar className="w-8 h-8" style={{ borderRadius: "5px" }}>
+                  <AvatarFallback className="text-xs bg-green-500/20 text-green-400 border-green-500/30" style={{ borderRadius: "5px" }}>
+                    {article.avatar}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="flex-1 min-w-0">
+                  <h4 className="text-sm font-medium leading-tight text-white">
+                    {article.title}
+                  </h4>
+                  <p className="text-xs text-gray-400 mt-1">
+                    {article.description}
+                  </p>
+                  <Button
+                    variant="link"
+                    size="sm"
+                    className="h-auto p-0 text-xs text-green-400 hover:text-green-300"
+                    style={{ borderRadius: "5px" }}
+                  >
+                    {article.readMore}
+                  </Button>
+                </div>
+              </div>
+              {index < trendingArticles.length - 1 && <Separator className="bg-white/10" style={{ borderRadius: "5px" }} />}
             </div>
           ))}
-        </div>
-      </div>
+        </CardContent>
+      </Card>
 
       {/* Popular Topics */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-bold text-gray-900">Popular Topics</h3>
-          <a href="#" className="text-blue-500 text-sm font-medium hover:text-blue-600">View All</a>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {popularTopics.map((topic, index) => (
-            <button
-              key={index}
-              className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full hover:bg-blue-100 hover:text-blue-600 transition-colors"
-            >
-              {topic}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Fashion Tips Exchange */}
-      <div>
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-bold text-gray-900">Fashion Tips</h3>
-          <a href="#" className="text-blue-500 text-sm font-medium hover:text-blue-600">View All</a>
-        </div>
-        <div className="bg-gray-50 rounded-lg p-4">
-          <div className="flex items-center space-x-3 mb-3">
-            <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-              <span className="text-white font-medium text-sm">SA</span>
-            </div>
-            <div>
-              <div className="text-sm font-medium text-gray-900">@sitiastyle</div>
-            </div>
+      <Card className="supabase-gradient-card" style={{ borderRadius: "5px" }}>
+        <CardHeader className="pb-3" style={{ borderRadius: "5px" }}>
+          <CardTitle className="text-base flex items-center gap-2 text-white">
+            <Hash className="w-4 h-4 text-green-400" />
+            Popular Topics
+          </CardTitle>
+        </CardHeader>
+        <CardContent style={{ borderRadius: "5px" }}>
+          <div className="flex flex-wrap gap-2">
+            {popularTopics.map((topic, index) => (
+              <Badge
+                key={index}
+                variant="outline"
+                className="text-xs bg-black/20 text-gray-300 border-white/10 hover:bg-green-500/20 hover:text-green-400 hover:border-green-500/30"
+                style={{ borderRadius: "5px" }}
+              >
+                #{topic}
+              </Badge>
+            ))}
           </div>
-          <p className="text-sm text-gray-700">
-            For a more proportional look, choose high-waist pants with a tucked-in top. This will make your legs look longer.
-          </p>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   );
 } 

@@ -13,88 +13,117 @@ import {
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-const BACKEND_BASE_URL = "https://backend2-1-t2fh.onrender.com";
+// Rename BACKEND_BASE_URL to BACKEND_CLOTH_URL
+const BACKEND_CLOTH_URL = "https://backend2-1-t2fh.onrender.com";
 const BACKEND_USER_URL = "https://backend-user-ftr6.onrender.com";
-const BACKEND1_URL = "https://portable-stating-indicates-con.trycloudflare.com";
+// Rename BACKEND1_URL to BACKEND_TRYON_URL
+const BACKEND_TRYON_URL = "http://localhost:3001";
 
 // Sidebar component
 function Sidebar({ selectedClothingItem }) {
-  const [selectedSize, setSelectedSize] = useState('M'); // State untuk ukuran yang dipilih
+  const [selectedSize, setSelectedSize] = useState('M');
 
   const sizes = [
     { size: 'S', stock: 5 },
     { size: 'M', stock: 10 },
     { size: 'L', stock: 8 },
     { size: 'XL', stock: 3 }
-  ]; // Array ukuran dan stok yang tersedia
+  ];
 
   return (
     <aside className="w-full lg:w-[45%] flex-shrink-0">
       {/* Sidebar: Clothing Thumbnail + Info */}
-
-      {/* Sidebar: Everyday Look Info */}
-      <div className="rounded-xl p-4">
-        <h2 className="text-base font-bold text-black mb-2">DETAIL PAKAIAN</h2>
-        <p className="text-gray-700 mb-4 text-xs">
+      <div
+        className="p-4 bg-neutral-900 shadow-sm"
+        style={{
+          border: "1.5px solid #23272e",
+          borderRadius: "5px"
+        }}
+      >
+        <h2 className="text-base font-bold text-white mb-2">DETAIL PAKAIAN</h2>
+        <p className="text-neutral-300 mb-4 text-xs">
           Tampilan pakaian yang elegan dan nyaman untuk dipakai sehari-hari. Cocok untuk berbagai acara.
         </p>
         {/* Gambar dan Info Produk */}
         <div className="space-y-2 mb-4">
-          <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
-            <div className="w-16 h-16 bg-gray-200 rounded flex items-center justify-center overflow-hidden">
+          <div
+            className="flex items-center gap-2 p-2 bg-neutral-800"
+            style={{
+              border: "1.5px solid #23272e",
+              borderRadius: "5px"
+            }}
+          >
+            <div className="w-16 h-16 bg-neutral-700 flex items-center justify-center overflow-hidden"
+              style={{ borderRadius: "5px" }}
+            >
               {selectedClothingItem && (
-                <img 
-                  src={`${BACKEND_BASE_URL}/uploads/${selectedClothingItem.image}`}
+                <img
+                  src={`${BACKEND_CLOTH_URL}/uploads/${selectedClothingItem.image}`}
                   alt={selectedClothingItem.desc}
                   className="w-full h-full object-cover"
+                  style={{ borderRadius: "5px" }}
                 />
               )}
             </div>
             <div className="flex-1">
-              <p className="font-medium text-xs">{selectedClothingItem?.desc || "Nama Pakaian"}</p>
-              <p className="text-xs text-gray-500">Warna: Putih | Ukuran: {selectedSize}</p>
+              <p className="font-medium text-xs text-white">{selectedClothingItem?.desc || "Nama Pakaian"}</p>
+              <p className="text-xs text-neutral-400">Warna: Putih | Ukuran: {selectedSize}</p>
             </div>
-            <span className="font-bold text-xs">Rp 299.000</span>
+            <span className="font-bold text-xs text-white">Rp 299.000</span>
           </div>
         </div>
 
         {/* Size Selector */}
         <div className="mb-4">
-          <p className="text-sm font-medium mb-2">Pilih Ukuran:</p>
+          <p className="text-sm font-medium mb-2 text-white">Pilih Ukuran:</p>
           <div className="flex gap-2">
-            {sizes.map(({size, stock}) => (
+            {sizes.map(({ size, stock }) => (
               <button
                 key={size}
                 onClick={() => setSelectedSize(size)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors flex flex-col items-center ${
-                  selectedSize === size 
-                    ? 'bg-black text-white' 
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
+                className={`px-4 py-2 text-sm font-medium transition-colors flex flex-col items-center border`}
+                style={{
+                  background: selectedSize === size ? "#fff" : "#23272e",
+                  color: selectedSize === size ? "#18181b" : "#e5e7eb",
+                  border: selectedSize === size ? "1.5px solid #fff" : "1.5px solid #23272e",
+                  borderRadius: "5px"
+                }}
               >
                 <span>{size}</span>
-                <span className="text-xs mt-1">{stock} tersisa</span>
+                <span className="text-xs mt-1 text-neutral-400">{stock} tersisa</span>
               </button>
             ))}
           </div>
         </div>
 
         {/* Ringkasan Harga */}
-        <div className="border-t pt-3 space-y-1 text-xs">
+        <div
+          className="pt-3 space-y-1 text-xs"
+          style={{
+            borderTop: "1.5px solid #23272e"
+          }}
+        >
           <div className="flex justify-between">
-            <span>Diskon:</span>
-            <span className="text-green-600">-Rp 50.000</span>
+            <span className="text-neutral-300">Diskon:</span>
+            <span className="text-green-400">-Rp 50.000</span>
           </div>
           <div className="flex justify-between">
-            <span>Ongkos Kirim:</span>
-            <span>Rp 20.000</span>
+            <span className="text-neutral-300">Ongkos Kirim:</span>
+            <span className="text-white">Rp 20.000</span>
           </div>
-          <div className="flex justify-between font-bold text-base border-t pt-2">
-            <span>Total:</span>
-            <span>Rp 269.000</span>
+          <div
+            className="flex justify-between font-bold text-base pt-2"
+            style={{
+              borderTop: "1.5px solid #23272e"
+            }}
+          >
+            <span className="text-white">Total:</span>
+            <span className="text-white">Rp 269.000</span>
           </div>
         </div>
-        <Button className="w-full bg-black text-white hover:bg-gray-800 font-bold py-2 mt-4 text-xs">
+        <Button className="w-full bg-white text-black hover:bg-neutral-200 font-bold py-2 mt-4 text-xs shadow-sm"
+          style={{ borderRadius: "5px" }}
+        >
           Checkout Now
         </Button>
       </div>
@@ -125,11 +154,19 @@ export default function TryOnPage() {
   const fileInputRef = useRef(null);
 
   useEffect(() => {
+    // Set body background to transparent
+    document.body.style.background = "transparent";
+    // Optional: clean up on unmount
+    return () => {
+      document.body.style.background = "";
+    };
+  }, []);
+
+  useEffect(() => {
     fetchClothingItems();
   }, []);
 
   useEffect(() => {
-    // Check if there's a selected clothing item from navigation state
     if (location.state && location.state.selectedClothing) {
       setSelectedClothingItem(location.state.selectedClothing);
     }
@@ -138,14 +175,13 @@ export default function TryOnPage() {
   const fetchClothingItems = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${BACKEND_BASE_URL}/api/clothing`);
+      const response = await fetch(`${BACKEND_CLOTH_URL}/api/clothing`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
       if (data && data.success) {
         setClothingItems(data.data);
-        // Only set first item if no clothing was selected from home page
         if (!location.state?.selectedClothing && data.data.length > 0) {
           setSelectedClothingItem(data.data[0]);
         }
@@ -284,8 +320,8 @@ export default function TryOnPage() {
     setGenerateError(null);
     setGeneratedResult(null);
     try {
-      const clothingUrl = `${BACKEND_BASE_URL}/uploads/${selectedClothingItem.image}`;
-      const response = await fetch(`${BACKEND1_URL}/api/tryon`, {
+      const clothingUrl = `${BACKEND_CLOTH_URL}/uploads/${selectedClothingItem.image}`;
+      const response = await fetch(`${BACKEND_TRYON_URL}/api/tryon`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -346,8 +382,8 @@ export default function TryOnPage() {
     setGenerating(true);
     setGenerateError(null);
     try {
-      const clothingUrl = `${BACKEND_BASE_URL}/uploads/${selectedClothingItem.image}`;
-      const response = await fetch(`${BACKEND1_URL}/api/tryon`, {
+      const clothingUrl = `${BACKEND_CLOTH_URL}/uploads/${selectedClothingItem.image}`;
+      const response = await fetch(`${BACKEND_TRYON_URL}/api/tryon`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -397,10 +433,10 @@ export default function TryOnPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
+      <div className="flex items-center justify-center min-h-[400px] bg-transparent">
         <div className="text-center space-y-4">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary mx-auto border-black"></div>
-          <p className="text-lg text-black font-semibold">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary mx-auto border-white"></div>
+          <p className="text-lg text-white font-semibold">
             Memuat data pakaian...
           </p>
         </div>
@@ -410,23 +446,26 @@ export default function TryOnPage() {
 
   return (
     <>
-      <div className="p-4 min-h-screen">
+      <div className="p-4 min-h-screen bg-transparent">
         {/* Header */}
         <div className="flex items-center gap-4 mb-4">
           <Button
             variant="outline"
             size="sm"
-            onClick={() => navigate("/")}
-            className="hover:bg-gray-100 text-black border-gray-200"
+            onClick={() => navigate("/dashboard")}
+            className="hover:bg-neutral-800 text-white border"
+            style={{
+              border: "1.5px solid #23272e"
+            }}
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back
           </Button>
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight text-black">
+            <h1 className="text-3xl font-extrabold tracking-tight text-white">
               Virtual Try-On
             </h1>
-            <p className="text-base text-gray-700 font-medium">
+            <p className="text-base text-neutral-300 font-medium">
               Coba pakaian secara virtual dengan AI
             </p>
           </div>
@@ -436,51 +475,80 @@ export default function TryOnPage() {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Left: TryOn Content */}
           <div className="w-full lg:w-[55%]">
-            <div className="relative p-0 overflow-hidden border border-gray-200">
+            <div
+              className="relative p-0 overflow-hidden bg-neutral-900 shadow-sm"
+              style={{
+                border: "1.5px solid #23272e",
+                borderRadius: "5px"
+              }}
+            >
               {/* Main Image */}
               <div className="relative">
                 {uploadedPersonImage ? (
                   <img
                     src={showOriginal ? uploadedPersonImage.preview : (generatedResult ? generatedResult.resultUrl : uploadedPersonImage.preview)}
                     alt="Uploaded person"
-                    className="w-full h-[80vh] object-cover"
+                    className="w-full h-[80vh] object-cover bg-neutral-800"
+                    style={{ borderRadius: "5px" }}
                   />
                 ) : (
                   <div
-                    className={`w-full h-[80vh] flex items-center justify-center transition-colors cursor-pointer ${
-                      dragActive
-                        ? "border-black bg-gray-100"
-                        : "border-gray-300"
-                    } hover:border-black hover:bg-gray-100`}
+                    className={`w-full h-[80vh] flex items-center justify-center transition-colors cursor-pointer`}
+                    style={{
+                      border: dragActive
+                        ? "2.5px solid #fff"
+                        : "2.5px solid #23272e",
+                      background: dragActive
+                        ? "#23272e"
+                        : "#18181b",
+                      borderRadius: "5px"
+                    }}
                     onDragEnter={handleDrag}
                     onDragLeave={handleDrag}
                     onDragOver={handleDrag}
                     onDrop={handleDrop}
                     onClick={() => fileInputRef.current?.click()}
                   >
-                    <div className="text-center text-gray-500">
-                      <Camera className="h-16 w-16 mx-auto mb-4" />
-                      <p className="text-lg font-medium">Upload foto orang</p>
-                      <p className="text-sm mt-2">Drag & drop atau klik untuk memilih file</p>
-                      <p className="text-xs mt-1 text-gray-400">Format: JPG, PNG, GIF (Max 5MB)</p>
+                    <div className="text-center text-neutral-500">
+                      <Camera className="h-16 w-16 mx-auto mb-4 text-neutral-400" />
+                      <p className="text-lg font-medium text-white">Upload foto orang</p>
+                      <p className="text-sm mt-2 text-neutral-400">Drag & drop atau klik untuk memilih file</p>
+                      <p className="text-xs mt-1 text-neutral-500">Format: JPG, PNG, GIF (Max 5MB)</p>
                     </div>
                   </div>
                 )}
 
                 {/* AI Mirror Toggle */}
                 {generatedResult && generatedResult.resultUrl && (
-                  <div className="absolute top-4 left-4 bg-black text-white px-3 py-2 rounded-lg flex items-center gap-2">
-                    <span className="text-sm font-medium">AI Mirror</span>
+                  <div
+                    className="absolute top-4 left-4 bg-black text-white px-2 py-1 flex items-center gap-2 shadow"
+                    style={{
+                      border: "1.5px solid #23272e",
+                      borderRadius: "6px",
+                      minHeight: "32px",
+                      minWidth: "auto",
+                    }}
+                  >
+                    <span className="text-xs font-medium">AI Mirror</span>
                     <button
                       onClick={() => setAiMirrorEnabled(!aiMirrorEnabled)}
-                      className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
-                        aiMirrorEnabled ? 'bg-black' : 'bg-gray-400'
-                      }`}
+                      className="relative inline-flex h-4 w-7 items-center transition-colors"
+                      style={{
+                        background: aiMirrorEnabled ? "#fff" : "#23272e",
+                        border: "1.2px solid #23272e",
+                        borderRadius: "8px",
+                        padding: "2px",
+                        boxShadow: aiMirrorEnabled ? "0 0 4px #fff2" : "none",
+                        transition: "background 0.2s, border 0.2s",
+                      }}
                     >
                       <span
-                        className={`inline-block h-3 w-3 transform rounded-full bg-white transition-transform ${
-                          aiMirrorEnabled ? 'translate-x-5' : 'translate-x-1'
-                        }`}
+                        className="inline-block h-3 w-3 transform bg-black transition-transform"
+                        style={{
+                          transform: aiMirrorEnabled ? "translateX(14px)" : "translateX(2px)",
+                          borderRadius: "50%",
+                          boxShadow: "0 1px 2px #0002",
+                        }}
                       />
                     </button>
                   </div>
@@ -492,7 +560,12 @@ export default function TryOnPage() {
                     <img
                       src={generatedResult.resultUrl}
                       alt="AI Mirror output"
-                      className="w-24 h-24 object-cover rounded-lg border-2 border-white"
+                      className="w-24 h-24 object-cover"
+                      style={{
+                        border: "1.5px solid #23272e",
+                        background: "#18181b",
+                        borderRadius: "5px"
+                      }}
                     />
                   </div>
                 )}
@@ -501,19 +574,29 @@ export default function TryOnPage() {
                 {generatedResult && generatedResult.resultUrl && uploadedPersonImage && (
                   <Button
                     onClick={() => setShowOriginal(!showOriginal)}
-                    className="absolute bottom-4 right-4 bg-white hover:bg-gray-100 text-black rounded-full w-12 h-12 p-0 border border-gray-300"
+                    className="absolute bottom-4 right-4 hover:bg-neutral-200 text-black flex items-center justify-center"
+                    style={{
+                      border: "2px solid rgb(221, 221, 221)",
+                      borderRadius: "50%",
+                      width: "48px",
+                      height: "48px",
+                      padding: 0,
+                    }}
                   >
-                    <RefreshCw className="h-5 w-5" />
+                    <RefreshCw className="h-6 w-6" />
                   </Button>
                 )}
 
                 {/* Remove Image Button */}
                 {uploadedPersonImage && (
                   <Button
-                    size="sm"
-                    variant="destructive"
-                    className="absolute top-4 right-4"
+                    size="icon"
+                    variant="ghost"
+                    aria-label="Hapus gambar"
+                    className="absolute top-4 right-4 bg-red-500 hover:bg-red-600 text-white shadow-lg focus:outline-none focus:ring-2 focus:ring-red-400"
+                    style={{ borderRadius: "50%", width: "36px", height: "36px", minWidth: "36px", minHeight: "36px" }}
                     onClick={removeUploadedImage}
+                    tabIndex={0}
                   >
                     <X className="h-4 w-4" />
                   </Button>
@@ -522,22 +605,32 @@ export default function TryOnPage() {
 
               {/* Upload Progress */}
               {uploading && (
-                <div className="p-4 border-t">
+                <div
+                  className="p-4 bg-neutral-800"
+                  style={{
+                    borderTop: "1.5px solid #23272e",
+                    borderBottomLeftRadius: "5px",
+                    borderBottomRightRadius: "5px"
+                  }}
+                >
                   <div className="flex flex-col items-center gap-2 w-full">
-                    <Loader2 className="h-5 w-5 animate-spin text-black" />
-                    <span className="text-black font-medium text-sm">
+                    <Loader2 className="h-5 w-5 animate-spin text-white" />
+                    <span className="text-white font-medium text-sm">
                       Mengupload foto orang...
                     </span>
-                    <div className="w-full bg-gray-200 rounded-lg h-2 mt-2 overflow-hidden">
+                    <div className="w-full bg-neutral-700 h-2 mt-2 overflow-hidden"
+                      style={{ borderRadius: "5px" }}
+                    >
                       <div
-                        className="bg-black h-full rounded-lg transition-all"
+                        className="bg-white h-full transition-all"
                         style={{
                           width: `${uploadProgress}%`,
                           transition: "width 0.2s",
+                          borderRadius: "5px"
                         }}
                       ></div>
                     </div>
-                    <span className="text-xs text-gray-500 font-semibold">
+                    <span className="text-xs text-neutral-400 font-semibold">
                       {uploadProgress}%
                     </span>
                   </div>
@@ -546,8 +639,15 @@ export default function TryOnPage() {
 
               {/* Upload Error */}
               {uploadError && (
-                <div className="p-4 border-t">
-                  <div className="text-red-500 text-sm font-semibold flex items-center gap-2">
+                <div
+                  className="p-4 bg-red-900"
+                  style={{
+                    borderTop: "1.5px solid #23272e",
+                    borderBottomLeftRadius: "5px",
+                    borderBottomRightRadius: "5px"
+                  }}
+                >
+                  <div className="text-red-400 text-sm font-semibold flex items-center gap-2">
                     <AlertCircle className="h-4 w-4" />
                     {uploadError}
                   </div>
@@ -555,7 +655,14 @@ export default function TryOnPage() {
               )}
 
               {/* Generate Buttons */}
-              <div className="p-4 border-t">
+              <div
+                className="p-4 bg-neutral-800"
+                style={{
+                  borderTop: "1.5px solid #23272e",
+                  borderBottomLeftRadius: "5px",
+                  borderBottomRightRadius: "5px"
+                }}
+              >
                 <div className="flex gap-3">
                   <Button
                     onClick={handleGenerate}
@@ -565,7 +672,8 @@ export default function TryOnPage() {
                       uploading ||
                       generating
                     }
-                    className="flex-1 bg-black text-white font-bold hover:bg-gray-800 transition"
+                    className="flex-1 bg-white text-black font-bold hover:bg-neutral-200 transition shadow"
+                    style={{ borderRadius: "5px" }}
                   >
                     {generating ? (
                       <>
@@ -579,7 +687,7 @@ export default function TryOnPage() {
                       </>
                     )}
                   </Button>
-                  
+
                   <Button
                     onClick={handleRegenerateMirror}
                     disabled={
@@ -589,7 +697,8 @@ export default function TryOnPage() {
                       generating ||
                       !generatedResult
                     }
-                    className="flex-1 bg-gray-800 text-white font-bold hover:bg-black transition"
+                    className="flex-1 bg-neutral-700 text-white font-bold hover:bg-neutral-600 transition shadow"
+                    style={{ borderRadius: "5px" }}
                   >
                     {generating ? (
                       <>
@@ -604,11 +713,17 @@ export default function TryOnPage() {
                     )}
                   </Button>
                 </div>
-                
+
                 {generateError && (
-                  <div className="flex items-center gap-2 p-3 bg-red-100 border border-red-200 rounded-lg mt-3">
-                    <AlertCircle className="h-4 w-4 text-red-500" />
-                    <p className="text-sm text-red-500 font-semibold">
+                  <div
+                    className="flex items-center gap-2 p-3 bg-red-900 mt-3"
+                    style={{
+                      border: "1.5px solid #23272e",
+                      borderRadius: "5px"
+                    }}
+                  >
+                    <AlertCircle className="h-4 w-4 text-red-400" />
+                    <p className="text-sm text-red-400 font-semibold">
                       {generateError}
                     </p>
                   </div>
@@ -617,21 +732,36 @@ export default function TryOnPage() {
 
               {/* Output Thumbnail */}
               {generatedResult && generatedResult.resultUrl && (
-                <div className="p-4 border-t">
+                <div
+                  className="p-4 bg-neutral-800"
+                  style={{
+                    borderTop: "1.5px solid #23272e",
+                    borderBottomLeftRadius: "5px",
+                    borderBottomRightRadius: "5px"
+                  }}
+                >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-16 h-16 rounded-lg overflow-hidden border-2 border-gray-200">
+                      <div
+                        className="w-16 h-16 overflow-hidden bg-neutral-900"
+                        style={{
+                          border: "1.5px solid #23272e",
+                          borderRadius: "5px"
+                        }}
+                      >
                         <img
-                          src={generatedResult.resultUrl} 
+                          src={generatedResult.resultUrl}
                           alt="Hasil generate"
                           className="w-full h-full object-cover"
+                          style={{ borderRadius: "5px" }}
                         />
                       </div>
                     </div>
                     <Button
                       onClick={handleDownloadResult}
-                      size="sm" 
-                      className="bg-black hover:bg-gray-800 text-white"
+                      size="sm"
+                      className="bg-white hover:bg-neutral-200 text-black shadow"
+                      style={{ borderRadius: "5px" }}
                     >
                       <Download className="h-4 w-4 mr-1" />
                       Unduh

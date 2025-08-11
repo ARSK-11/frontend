@@ -13,8 +13,11 @@ export default defineConfig({
   },
   server: {
     allowedHosts: [
-      "park-superintendent-enhanced-produces.trycloudflare.com",
-      "portable-stating-indicates-con.trycloudflare.com" // tambahkan domain ngrok atau cloudflare tunnel kamu di sini tanpa https://
+      "brighton-shorts-afraid-mom.trycloudflare.com",
+      "currently-italia-addresses-antique.trycloudflare.com",
+      "received-analytical-portland-infrared.trycloudflare.com",
+      "176.100.37.129:3001"
+      // tambahkan domain ngrok atau cloudflare tunnel kamu di sini tanpa https://
     ]
   }
 })

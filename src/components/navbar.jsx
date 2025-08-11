@@ -1,14 +1,12 @@
 import { 
-  Search, 
-  RefreshCw, 
   Settings, 
-  Plus as PlusIcon,
-  User,
   Bell,
   Globe,
-  ChevronDown
+  Sparkles
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Badge } from "@/components/ui/badge"
 
 export default function Navbar() {
   // Fungsi untuk refresh halaman
@@ -17,66 +15,50 @@ export default function Navbar() {
   };
 
   return (
-    <header className="bg-white border-b border-gray-200 px-6 py-4 shadow-sm">
+    <header className="bg-black/50 backdrop-blur-xl border-b border-white/10 px-3 py-2 shadow-lg">
       <div className="flex items-center justify-between">
-        {/* Left side */}
-        <div className="flex items-center space-x-4">
-          <div className="flex items-center space-x-2">
-            <span className="text-gray-600 text-sm">example@gmail.com</span>
+        {/* Kiri */}
+        <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-1">
+            <Sparkles className="w-4 h-4 text-green-400" />
+            <span className="font-bold text-base text-white">Threadify</span>
           </div>
+          <Badge variant="outline" className="text-[10px] bg-green-500/10 text-green-400 border-green-500/20 px-2 py-0.5">
+            Free
+          </Badge>
         </div>
         
-        {/* Right side */}
-        <div className="flex items-center space-x-4">
-          {/* Language Selector */}
-          <div className="flex items-center space-x-2 text-sm text-gray-600">
-            <Globe className="w-4 h-4" />
-            <select className="bg-transparent border-none focus:ring-0 text-sm">
-              <option>English (US)</option>
-              <option>Bahasa Indonesia</option>
-            </select>
-            <span className="text-gray-400">•</span>
-            <select className="bg-transparent border-none focus:ring-0 text-sm">
-              <option>ID Rupiah (IDR)</option>
-              <option>USD Dollar</option>
-            </select>
+        {/* Kanan */}
+        <div className="flex items-center space-x-2">
+          {/* Pilihan Bahasa */}
+          <div className="flex items-center space-x-1">
+            <Globe className="w-3 h-3 text-gray-400" />
+            <Select defaultValue="en">
+              <SelectTrigger className="w-24 h-8 bg-black/20 border-white/10 text-xs text-white">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent className="bg-black border-white/10 text-xs">
+                <SelectItem value="en">EN</SelectItem>
+                <SelectItem value="id">ID</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
-          {/* Notification Bell */}
-          <Button variant="ghost" size="sm" className="text-gray-500 hover:text-blue-500">
-            <Bell className="w-4 h-4" />
+          {/* Tombol Feedback */}
+          <Button variant="outline" size="xs" className="bg-black/20 border-white/10 text-xs text-white hover:bg-white/10 px-2 py-1 h-8">
+            Feedback
           </Button>
 
-          {/* Tombol refresh yang bisa di-klik */}
-          {/* <button
-            onClick={handleRefresh}
-            className="focus:outline-none"
-            title="Refresh"
-            aria-label="Refresh"
-            type="button"
-          >
-            <RefreshCw className="w-5 h-5 text-gray-500 hover:text-blue-500 cursor-pointer transition-colors" />
-          </button> */}
-          
-          <Settings className="w-5 h-5 text-gray-500 hover:text-blue-500 cursor-pointer transition-colors" />
-          
-          {/* New Access button */}
-          {/* <Button size="sm" className="bg-blue-500 hover:bg-blue-600 text-white shadow-sm">
-            <PlusIcon className="w-4 h-4 mr-1" />
-            New Access
-          </Button> */}
-          
-          {/* User Profile */}
-          {/* <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-blue-500 rounded-full shadow-sm cursor-pointer hover:shadow-md transition-shadow flex items-center justify-center">
-              <span className="text-white font-medium text-sm">AF</span>
-            </div>
-            <div className="hidden md:block">
-              <div className="text-sm font-medium text-gray-900">Ananda Faris</div>
-              <div className="text-xs text-gray-500">Free Account</div>
-            </div>
-            <ChevronDown className="w-4 h-4 text-gray-400" />
-          </div> */}
+          {/* Notifikasi */}
+          <Button variant="ghost" size="xs" className="relative text-gray-400 hover:text-white hover:bg-white/10 h-8 w-8 p-0">
+            <Bell className="w-3.5 h-3.5" />
+            <Badge className="absolute -top-1 -right-1 h-3 w-3 p-0 text-[9px] bg-green-500">3</Badge>
+          </Button>
+
+          {/* Settings */}
+          <Button variant="ghost" size="xs" className="text-gray-400 hover:text-white hover:bg-white/10 h-8 w-8 p-0">
+            <Settings className="w-3.5 h-3.5" />
+          </Button>
         </div>
       </div>
     </header>
